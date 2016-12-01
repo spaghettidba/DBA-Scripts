@@ -1,0 +1,137 @@
+\Cache\Dirty Pages
+\Cache\Lazy Write Flushes/sec
+\LogicalDisk(*)\% Free Space
+\LogicalDisk(*)\% Idle Time
+\LogicalDisk(*)\Avg. Disk Bytes/Read
+\LogicalDisk(*)\Avg. Disk Bytes/Write
+\LogicalDisk(*)\Avg. Disk Queue Length
+\LogicalDisk(*)\Avg. Disk sec/Read
+\LogicalDisk(*)\Avg. Disk sec/Write
+\LogicalDisk(*)\Current Disk Queue Length
+\LogicalDisk(*)\Disk Bytes/sec
+\LogicalDisk(*)\Disk Reads/sec
+\LogicalDisk(*)\Disk Transfers/sec
+\LogicalDisk(*)\Disk Writes/sec
+\LogicalDisk(*)\Free Megabytes
+\Memory\% Committed Bytes In Use
+\Memory\Available MBytes
+\Memory\Cache Bytes
+\Memory\Commit Limit
+\Memory\Committed Bytes
+\Memory\Free & Zero Page List Bytes
+\Memory\Free System Page Table Entries
+\Memory\Pages Input/sec
+\Memory\Pages Output/sec
+\Memory\Pages/sec
+\Memory\Pool Nonpaged Bytes
+\Memory\Pool Paged Bytes
+\Memory\System Cache Resident Bytes
+\Memory\Transition Pages RePurposed/sec
+\<INSTANCE>:Access Methods()\Forwarded Records/sec
+\<INSTANCE>:Access Methods()\FreeSpace Scans/sec
+\<INSTANCE>:Access Methods()\Full Scans/sec
+\<INSTANCE>:Access Methods()\Index Searches/sec
+\<INSTANCE>:Access Methods()\Page Splits/sec
+\<INSTANCE>:Access Methods()\Scan Point Revalidations/sec
+\<INSTANCE>:Access Methods()\Workfiles Created/sec
+\<INSTANCE>:Access Methods()\Worktables Created/sec
+\<INSTANCE>:Buffer Manager()\Buffer cache hit ratio
+\<INSTANCE>:Buffer Manager()\Checkpoint pages/sec
+\<INSTANCE>:Buffer Manager()\Free pages
+\<INSTANCE>:Buffer Manager()\Lazy writes/sec
+\<INSTANCE>:Buffer Manager()\Page life expectancy
+\<INSTANCE>:Buffer Manager()\Page lookups/sec
+\<INSTANCE>:Buffer Manager()\Page reads/sec
+\<INSTANCE>:Buffer Manager()\Page writes/sec
+\<INSTANCE>:General Statistics()\Logins/sec
+\<INSTANCE>:General Statistics()\Logouts/sec
+\<INSTANCE>:General Statistics()\User Connections
+\<INSTANCE>:Latches()\Latch Waits/sec
+\<INSTANCE>:Latches()\Total Latch Wait Time (ms)
+\<INSTANCE>:Locks(*)\Lock Requests/sec
+\<INSTANCE>:Locks(*)\Lock Timeouts/sec
+\<INSTANCE>:Locks(*)\Lock Wait Time (ms)
+\<INSTANCE>:Locks(*)\Lock Waits/sec
+\<INSTANCE>:Locks(*)\Number of Deadlocks/sec
+\<INSTANCE>:Memory Manager()\Memory Grants Pending
+\<INSTANCE>:Memory Manager()\Target Server Memory(KB)
+\<INSTANCE>:Memory Manager()\Total Server Memory (KB)
+\<INSTANCE>:SQL Statistics()\Batch Requests/sec
+\<INSTANCE>:SQL Statistics()\SQL Compilations/sec
+\<INSTANCE>:SQL Statistics()\SQL Re-Compilations/sec
+\Network Inspection System\Average inspection latency (sec/bytes)
+\Network Interface(*)\Bytes Received/sec
+\Network Interface(*)\Bytes Sent/sec
+\Network Interface(*)\Bytes Total/sec
+\Network Interface(*)\Current Bandwidth
+\Network Interface(*)\Output Queue Length
+\Network Interface(*)\Packets Outbound Errors
+\Network Interface(*)\Packets Received/sec
+\Network Interface(*)\Packets Sent/sec
+\Network Interface(*)\Packets/sec
+\Paging File(*)\% Usage
+\PhysicalDisk(*)\Avg. Disk Queue Length
+\PhysicalDisk(*)\Avg. Disk sec/Read
+\PhysicalDisk(*)\Avg. Disk sec/Write
+\PhysicalDisk(*)\Current Disk Queue Length
+\PhysicalDisk(*)\Disk Bytes/sec
+\PhysicalDisk(*)\Disk Reads/sec
+\PhysicalDisk(*)\Disk Writes/sec
+\Process(*)\% Processor Time
+\Process(*)\ID Process
+\Process(*)\IO Data Operations/sec
+\Process(*)\IO Other Operations/sec
+\Process(*)\IO Read Operations/sec
+\Process(*)\IO Write Operations/sec
+\Process(*)\Virtual Bytes
+\Process(_Total)\Handle Count
+\Process(_Total)\Private Bytes
+\Process(_Total)\Thread Count
+\Process(_Total)\Working Set
+\Process(sqlservr)\% Privileged Time
+\Processor Information(*)\% of Maximum Frequency
+\Processor Information(*)\Parking Status
+\Processor(*)\% DPC Time
+\Processor(*)\% Interrupt Time
+\Processor(*)\% Privileged Time
+\Processor(*)\% Processor Time
+\Processor(*)\% User Time
+\Processor(*)\DPC Rate
+\Server\Pool Nonpaged Failures
+\Server\Pool Paged Failures
+\SQLServer:Access Methods\Forwarded Records/sec
+\SQLServer:Access Methods\FreeSpace Scans/sec
+\SQLServer:Access Methods\Full Scans/sec
+\SQLServer:Access Methods\Index Searches/sec
+\SQLServer:Access Methods\Page Splits/sec
+\SQLServer:Access Methods\Scan Point Revalidations/sec
+\SQLServer:Access Methods\Workfiles Created/sec
+\SQLServer:Access Methods\Worktables Created/sec
+\SQLServer:Buffer Manager\Buffer cache hit ratio
+\SQLServer:Buffer Manager\Checkpoint pages/sec
+\SQLServer:Buffer Manager\Free pages
+\SQLServer:Buffer Manager\Lazy writes/sec
+\SQLServer:Buffer Manager\Page life expectancy
+\SQLServer:Buffer Manager\Page lookups/sec
+\SQLServer:Buffer Manager\Page reads/sec
+\SQLServer:Buffer Manager\Page writes/sec
+\SQLServer:General Statistics\Logins/sec
+\SQLServer:General Statistics\Logouts/sec
+\SQLServer:General Statistics\User Connections
+\SQLServer:Latches\Latch Waits/sec
+\SQLServer:Latches\Total Latch Wait Time (ms)
+\SQLServer:Locks(*)\Lock Requests/sec
+\SQLServer:Locks(*)\Lock Timeouts/sec
+\SQLServer:Locks(*)\Lock Wait Time (ms)
+\SQLServer:Locks(*)\Lock Waits/sec
+\SQLServer:Locks(*)\Number of Deadlocks/sec
+\SQLServer:Memory Manager\Memory Grants Pending
+\SQLServer:Memory Manager\Target Server Memory(KB)
+\SQLServer:Memory Manager\Total Server Memory (KB)
+\SQLServer:SQL Statistics\Batch Requests/sec
+\SQLServer:SQL Statistics\SQL Compilations/sec
+\SQLServer:SQL Statistics\SQL Re-Compilations/sec
+\System\Context Switches/sec
+\System\Processor Queue Length
+\System\System Calls/sec
+\TCPv4\Connection Failures
