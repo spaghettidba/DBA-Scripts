@@ -663,7 +663,7 @@ function Start-PerformanceDataCollection {
 
 
         #logman arguments
-        $logman_arguments = "create counter $cntrname -s $server -si 00:00:15 -cf $script_path\$cntrname.txt --v -f bin -o $OutputFolder\$cntrname -rf 168:00:00"
+        $logman_arguments = "create counter $cntrname -s $server -si 00:00:15 -cf $env:temp\$cntrname.txt --v -f bin -o $OutputFolder\$cntrname -rf 168:00:00"
         $logman_start_arguments = "start $cntrname -s $server"
         $logman_stop_arguments = "stop $cntrname -s $server"
        $logman_delete_arguments = "delete $cntrname -s $server"
@@ -685,7 +685,7 @@ function Start-PerformanceDataCollection {
 
         #Read counters definition
         $arr_counters = Get-Content $script_path\counters.txt
-        $arr_counters | % {$_ -replace "<HOSTNAME>", "\\$($TargetServer.ComputerName)"} | % {$_ -replace "<INSTANCE>", $sqlinstance} | Set-Content $script_path\$cntrname.txt
+        $arr_counters | % {$_ -replace "<HOSTNAME>", "\\$($TargetServer.ComputerName)"} | % {$_ -replace "<INSTANCE>", $sqlinstance} | Set-Content $env:temp\$cntrname.txt
         
         # Create the collection set
         $strCMD = $ExecutionContext.InvokeCommand.ExpandString($logman_arguments)
