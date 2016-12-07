@@ -61,7 +61,7 @@ Class SQLServerInstance {
             $this.InstanceSID ="MSSQL$" + $this.InstanceName
         }
         else {
-              $this.ComputerName = $Name
+	        $this.ComputerName = $Name
             $this.InstanceName = ""
             $this.CounterName = $Name
             $this.InstanceSID = "SQLServer"
@@ -595,53 +595,53 @@ function Restore-Databases {
 
 
 function wrapProcess([String]$name, [String[]]$arguments){
-      $process = New-Object System.Diagnostics.Process
-      $setup = $process.StartInfo
-      $setup.FileName = $name
-      $setup.Arguments = [String]::Join(" ", $arguments)
-      $setup.WorkingDirectory = $script_path
-      $setup.UseShellExecute = $false
-      $setup.RedirectStandardError = $true
-      $setup.RedirectStandardOutput = $true
-      $setup.RedirectStandardInput = $false
-      $setup.CreateNoWindow = $true
-      # Hook into the standard output and error stream events
-      $errEvent = Register-ObjectEvent -InputObj $process `
-            -Event "ErrorDataReceived" `
-            -Action `
-            {
-                  param
-                  (
-                        [System.Object] $sender,
-                        [System.Diagnostics.DataReceivedEventArgs] $e
-                  )
-                  Write-Verbose -foreground "DarkRed" $e.Data
-            }
-      $outEvent = Register-ObjectEvent -InputObj $process `
-            -Event "OutputDataReceived" `
-            -Action `
-            {
-                  param
-                  (
-                        [System.Object] $sender,
-                        [System.Diagnostics.DataReceivedEventArgs] $e
-                  )
-                  Write-Verbose $e.Data
-            }
-      # Start the process
-      [Void] $process.Start()
-      # Begin async read events
-      $process.BeginOutputReadLine()
-      $process.BeginErrorReadLine()
-      # Wait until process exit
-      while (!$process.HasExited)
-      {
-            Start-Sleep -Milliseconds 100
-      }
-      # Shutdown async read events
-      $process.CancelOutputRead()
-      $process.CancelErrorRead()
-      $process.Close()
+	$process = New-Object System.Diagnostics.Process
+	$setup = $process.StartInfo
+	$setup.FileName = $name
+	$setup.Arguments = [String]::Join(" ", $arguments)
+	$setup.WorkingDirectory = $script_path
+	$setup.UseShellExecute = $false
+	$setup.RedirectStandardError = $true
+	$setup.RedirectStandardOutput = $true
+	$setup.RedirectStandardInput = $false
+	$setup.CreateNoWindow = $true
+	# Hook into the standard output and error stream events
+	$errEvent = Register-ObjectEvent -InputObj $process `
+	      -Event "ErrorDataReceived" `
+	      -Action `
+	      {
+	            param
+	            (
+	                  [System.Object] $sender,
+	                  [System.Diagnostics.DataReceivedEventArgs] $e
+	            )
+	            Write-Verbose -foreground "DarkRed" $e.Data
+	      }
+	$outEvent = Register-ObjectEvent -InputObj $process `
+	      -Event "OutputDataReceived" `
+	      -Action `
+	      {
+	            param
+	            (
+	                  [System.Object] $sender,
+	                  [System.Diagnostics.DataReceivedEventArgs] $e
+	            )
+	            Write-Verbose $e.Data
+	      }
+	# Start the process
+	[Void] $process.Start()
+	# Begin async read events
+	$process.BeginOutputReadLine()
+	$process.BeginErrorReadLine()
+	# Wait until process exit
+	while (!$process.HasExited)
+	{
+	      Start-Sleep -Milliseconds 100
+	}
+	# Shutdown async read events
+	$process.CancelOutputRead()
+	$process.CancelErrorRead()
+	$process.Close()
 
 }
 
@@ -666,7 +666,7 @@ function Start-PerformanceDataCollection {
         $logman_arguments = "create counter $cntrname -s $server -si 00:00:15 -cf $env:temp\$cntrname.txt --v -f bin -o $OutputFolder\$cntrname -rf 168:00:00"
         $logman_start_arguments = "start $cntrname -s $server"
         $logman_stop_arguments = "stop $cntrname -s $server"
-       $logman_delete_arguments = "delete $cntrname -s $server"
+        $logman_delete_arguments = "delete $cntrname -s $server"
 
         Write-Verbose "Starting a new perfmon capture using PAL template."
 
@@ -900,7 +900,7 @@ function Stop-WorkloadCapture {
 }
 
 
-
+ 
 function Invoke-WorkloadReplay {
     [CmdletBinding()]
     Param(
@@ -954,7 +954,7 @@ function Invoke-WorkloadReplay {
       [string]$PostRestoreScript = ""
     )
     Process {
-
+ 
         [SQLServerInstance]$Server = [SQLServerInstance]::new($ServerName)
 
         if($RestoreDatabases -ne "") { 
@@ -1157,7 +1157,7 @@ function CreateSystemDSN([string]$DSNName, [string]$ServerName, [string]$Databas
     set-itemproperty -path $HKLMPath1 -name Trusted_Connection -value "Yes"
     set-itemproperty -path $HKLMPath1 -name Database -value $DatabaseName
     ## This is required to allow the ODBC connection to show up in the ODBC Administrator application.
-   md $HKLMPath2 -ErrorAction silentlycontinue | Out-Null
+    md $HKLMPath2 -ErrorAction silentlycontinue | Out-Null
     set-itemproperty -path $HKLMPath2 -name "$DSNName" -value "SQL Server Driver"
 }
 

@@ -4,18 +4,18 @@ GO
 create procedure #tmpPPEventEnable @TraceID int, @iEventID int
 as
 begin
-set nocount on
-declare @iColID int
-declare @iColIDMax int
-declare @on bit
-set @on= 1
-set @iColID = 1
-set @iColIDMax = 64
-while(@iColID <= @iColIDMax)
-begin
-exec sp_trace_setevent @TraceID, @iEventID, @iColID, @on
-set @iColID = @iColID + 1
-end
+    set nocount on
+    declare @iColID int
+    declare @iColIDMax int
+    declare @on bit
+    set @on= 1
+    set @iColID = 1
+    set @iColIDMax = 64
+    while(@iColID <= @iColIDMax)
+    begin
+        exec sp_trace_setevent @TraceID, @iEventID, @iColID, @on
+        set @iColID = @iColID + 1
+    end
 end
 go
 -- Create a Queue
@@ -37,8 +37,8 @@ declare @strVersion varchar(10)
 set @strVersion = cast(SERVERPROPERTY('ProductVersion') as varchar(10))
 if( (select cast( substring(@strVersion, 0, charindex('.', @strVersion)) as int)) >= 9)
 begin
-exec sp_trace_setevent @TraceID, 10, 1, @off -- No Text for RPC, only Binary for performance
-exec sp_trace_setevent @TraceID, 11, 1, @off -- No Text for RPC, only Binary for performance
+    exec sp_trace_setevent @TraceID, 10, 1, @off -- No Text for RPC, only Binary for performance
+    exec sp_trace_setevent @TraceID, 11, 1, @off -- No Text for RPC, only Binary for performance
 end
 exec #tmpPPEventEnable @TraceID, 44 -- SP:StmtStarting
 exec #tmpPPEventEnable @TraceID, 45 -- SP:StmtCompleted
