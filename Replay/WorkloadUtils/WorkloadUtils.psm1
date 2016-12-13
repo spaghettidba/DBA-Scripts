@@ -280,13 +280,16 @@ function Invoke-WorkloadCapture {
         Write-Verbose "Workload capture complete."
         
         Get-Job -Name "TraceCopyJob" | Stop-Job | Out-Null
+        Get-Job -Name "TraceCopyJob" | Remove-Job -Force  | Out-Null
+    
 
         Stop-WorkloadCapture `
             -TargetServer $Server `
             -CaptureName $CaptureName `
             -OutputFolder $local_perfdata `
             -RemoteOutputFolder $ServerOutputPath `
-            -ProcessRMLFiles $ProcessRMLFiles
+            -ProcessRMLFiles $ProcessRMLFiles `
+            -FilterDatabase $BackupDatabases
 
     }
 
@@ -382,6 +385,7 @@ function Move-TraceFiles([SQLServerInstance]$TargetServer, [string]$RemotePath, 
                     }
                     Start-Sleep -Seconds 5
                 }
+                Start-Sleep -Seconds 5
             } 
         } -Name "TraceCopyJob" | Out-Null
     
@@ -772,7 +776,9 @@ function Stop-WorkloadCapture {
         [Parameter(Mandatory=$True, Position=4)]
         [String]$RemoteOutputFolder, # REMOTE PERFDATA
         [Parameter(Mandatory=$True, Position=5)]
-        [bool]$ProcessRMLFiles # REMOTE PERFDATA
+        [bool]$ProcessRMLFiles, # Process RML files?
+        [Parameter(Mandatory=$False, Position=6)]
+        [String]$FilterDatabase = "" #Filter Database
     )
     Process {
 
@@ -810,7 +816,7 @@ function Stop-WorkloadCapture {
         $RemoteTraceFolder = Get-UNCPath $TargetServer.MachineName $RemoteOutputFolder
 
         if($RemoteTraceFolder.StartsWith('\\')) {
-            Write-Verbose "Settting permissions on the trace files..."
+            Write-Verbose "Setting permissions on the trace files..."
             $current_username = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
             $sql = "
                 DECLARE @cmdshell bit = CAST((
@@ -821,6 +827,8 @@ function Stop-WorkloadCapture {
 
                 IF @cmdshell = 0
                 BEGIN
+                    EXEC sp_configure 'advanced', 1
+                    RECONFIGURE
                     EXEC sp_configure 'xp_cmdshell', 1
                     RECONFIGURE
                 END
@@ -839,6 +847,8 @@ function Stop-WorkloadCapture {
             "
             Invoke-Sqlcmd -ServerInstance $TargetServer.Name -Database master -QueryTimeout 65535 -Query $sql
         }
+
+        Start-Sleep -Seconds 2
 
         get-childitem $RemoteTraceFolder -Filter $script:ErrorTrcFileNameNoExt*.trc | 
             Move-Item -Destination $($OutputFolder +"\"+ $CaptureName + "\Trace")
@@ -868,6 +878,10 @@ function Stop-WorkloadCapture {
                 "-T18",
                 "$processRML"
             ) 
+
+	if($FilterDatabase -ne "") {
+		$readTraceArgs += "-C`"$FilterDatabase`""
+	}
 
         &$script:readtracePath $readTraceArgs
 
