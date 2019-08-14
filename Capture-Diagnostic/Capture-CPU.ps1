@@ -1,13 +1,25 @@
+[CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true, Position=1)]
+        [string]$SourceServer,
+        [Parameter(Mandatory=$true, Position=2)]
+        [string]$DestinationServer,
+        [Parameter(Mandatory=$false, Position=3)]
+        [string]$DestinationDatabase = "diagnostic",
+        [Parameter(Mandatory=$false, Position=4)]
+        [string]$DestinationSchema = "dbo"
+    )
+
 
 $param = @{
-    SqlInstance     = "localhost\sqlexpress2016"
-    Database        = "testdiagnostic"
-    Schema          = "dbo"
+    SqlInstance     = $DestinationServer
+    Database        = $DestinationDatabase
+    Schema          = $DestinationSchema
     AutoCreateTable = $true
     Table           = "CpuUtilization"
 }
 
-Get-DbaCpuRingBuffer -SqlInstance "localhost\sqlexpress2016" | 
+Get-DbaCpuRingBuffer -SqlInstance $SourceServer | 
     Where-Object {$_ -ne $null } | 
     Select-Object SqlInstance, EventTime, SQLProcessUtilization, OtherProcessUtilization |
     Write-DbaDataTable @param 

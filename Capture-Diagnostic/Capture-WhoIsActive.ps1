@@ -1,4 +1,16 @@
-$installResults = Install-DbaWhoIsActive -SqlInstance "localhost\sqlexpress2016" -Database master
+[CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true, Position=1)]
+        [string]$SourceServer,
+        [Parameter(Mandatory=$true, Position=2)]
+        [string]$DestinationServer,
+        [Parameter(Mandatory=$false, Position=3)]
+        [string]$DestinationDatabase = "diagnostic",
+        [Parameter(Mandatory=$false, Position=4)]
+        [string]$DestinationSchema = "dbo"
+    )
+
+$installResults = Install-DbaWhoIsActive -SqlInstance $SourceServer -Database master
 
 
 [int64]$snapshotId = (Get-Date -Format "yyyyMMddHHmmss")
@@ -13,14 +25,14 @@ $serverProp = @{
 }
 
 $param = @{
-    SqlInstance     = "localhost\sqlexpress2016"
-    Database        = "testdiagnostic"
-    Schema          = "dbo"
+    SqlInstance     = $DestinationServer
+    Database        = $DestinationDatabase
+    Schema          = $DestinationSchema
     AutoCreateTable = $true
     Table           = "WhoIsActive"
 }
 
-Invoke-DbaWhoIsActive -SqlInstance "localhost\sqlexpress2016" -FindBlockLeaders -GetOuterCommand -GetPlans 1 |
+Invoke-DbaWhoIsActive -SqlInstance $SourceServer -FindBlockLeaders -GetOuterCommand -GetPlans 1 |
     Where-Object {$_ -ne $null } | 
     Select-Object $snapshotProp, $serverProp, * -ExcludeProperty RowError, RowState, Table, ItemArray, HasErrors |
     Write-DbaDataTable @param 

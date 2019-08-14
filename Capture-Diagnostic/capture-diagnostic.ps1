@@ -1,3 +1,14 @@
+[CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true, Position=1)]
+        [string]$SourceServer,
+        [Parameter(Mandatory=$true, Position=2)]
+        [string]$DestinationServer,
+        [Parameter(Mandatory=$false, Position=3)]
+        [string]$DestinationDatabase = "diagnostic",
+        [Parameter(Mandatory=$false, Position=4)]
+        [string]$DestinationSchema = "dbo"
+    )
 
 $queries = @(
     "Top Waits",
@@ -24,7 +35,7 @@ $queries = @(
 
 [int]$snapshotId = (Get-Date -Format "yyyyMMdd")
 
-Invoke-DbaDiagnosticQuery -SqlInstance "localhost\sqlexpress2016"  -QueryName $queries | 
+Invoke-DbaDiagnosticQuery -SqlInstance $SourceServer  -QueryName $queries | 
     Where-Object { $_.Result -ne $null } | 
     ForEach-Object {
         $TableName = $_.Name
@@ -68,9 +79,9 @@ Invoke-DbaDiagnosticQuery -SqlInstance "localhost\sqlexpress2016"  -QueryName $q
         $expr += '*'
 
         $param = @{
-            SqlInstance     = "localhost\sqlexpress2016"
-            Database        = "testdiagnostic"
-            Schema          = "dbo"
+            SqlInstance     = $DestinationServer
+            Database        = $DestinationDatabase
+            Schema          = $DestinationSchema
             AutoCreateTable = $true
             Table           = $TableName
             InputObject     = Invoke-Expression $expr
