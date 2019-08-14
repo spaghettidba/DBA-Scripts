@@ -32,7 +32,7 @@ $param = @{
     Table           = "WhoIsActive"
 }
 
-Invoke-DbaWhoIsActive -SqlInstance $SourceServer -FindBlockLeaders -GetOuterCommand -GetPlans 1 |
+Invoke-DbaWhoIsActive -SqlInstance $SourceServer -FindBlockLeaders -GetOuterCommand -GetPlans 1 -ShowOwnSpid |
     Where-Object {$_ -ne $null } | 
     Select-Object $snapshotProp, $serverProp, * -ExcludeProperty RowError, RowState, Table, ItemArray, HasErrors |
     Write-DbaDataTable @param 
