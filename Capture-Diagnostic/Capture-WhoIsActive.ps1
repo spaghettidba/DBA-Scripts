@@ -1,7 +1,7 @@
 $installResults = Install-DbaWhoIsActive -SqlInstance "localhost\sqlexpress2016" -Database master
 
 
-[int]$snapshotId = (Get-Date -Format "yyyyMMdd")
+[int64]$snapshotId = (Get-Date -Format "yyyyMMddHHmmss")
 
 $snapshotProp = @{
     Label = "snapshot_id"
