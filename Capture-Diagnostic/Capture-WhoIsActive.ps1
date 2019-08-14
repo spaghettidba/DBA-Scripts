@@ -10,7 +10,12 @@
         [string]$DestinationSchema = "dbo"
     )
 
-$installResults = Install-DbaWhoIsActive -SqlInstance $SourceServer -Database master
+    $CalculatedServerName = $SourceServer
+    try {
+        $installResults = Install-DbaWhoIsActive -SqlInstance $SourceServer -Database master
+        $CalculatedServerName = $installResults.SqlInstance
+    }
+    catch {}
 
 
 [int64]$snapshotId = (Get-Date -Format "yyyyMMddHHmmss")
@@ -21,7 +26,7 @@ $snapshotProp = @{
 }
 $serverProp = @{
     Label = "Server Name"
-    Expression = {$installResults.SqlInstance}
+    Expression = {$CalculatedServerName}
 }
 
 $param = @{
