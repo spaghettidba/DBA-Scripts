@@ -1,7 +1,7 @@
 [CmdletBinding()]
     param(
         [Parameter(Mandatory=$true, Position=1)]
-        [string]$SourceServer,
+        [string[]]$SourceServer,
         [Parameter(Mandatory=$true, Position=2)]
         [string]$DestinationServer,
         [Parameter(Mandatory=$false, Position=3)]
