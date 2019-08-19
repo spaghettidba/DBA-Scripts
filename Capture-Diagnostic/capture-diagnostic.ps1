@@ -35,7 +35,7 @@ $queries = @(
 
 [int]$snapshotId = (Get-Date -Format "yyyyMMdd")
 
-Invoke-DbaDiagnosticQuery -SqlInstance $SourceServer  -QueryName $queries | 
+Invoke-DbaDiagnosticQuery -SqlInstance $SourceServer  -QueryName $queries -EnableException | 
     Where-Object { $_.Result -ne $null } | 
     ForEach-Object {
         $TableName = $_.Name
@@ -86,5 +86,5 @@ Invoke-DbaDiagnosticQuery -SqlInstance $SourceServer  -QueryName $queries |
             Table           = $TableName
             InputObject     = Invoke-Expression $expr
         }
-        Write-DbaDataTable @param 
+        Write-DbaDataTable @param -EnableException
     }

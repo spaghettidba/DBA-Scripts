@@ -19,7 +19,7 @@ $param = @{
     Table           = "CpuUtilization"
 }
 
-Get-DbaCpuRingBuffer -SqlInstance $SourceServer | 
+Get-DbaCpuRingBuffer -SqlInstance $SourceServer -EnableException | 
     Where-Object {$_ -ne $null } | 
     Select-Object SqlInstance, EventTime, SQLProcessUtilization, OtherProcessUtilization |
-    Write-DbaDataTable @param 
+    Write-DbaDataTable @param -EnableException
