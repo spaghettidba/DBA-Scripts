@@ -48,3 +48,6 @@ Invoke-DbaQuery -SqlInstance $DestinationServer -Database $DestinationDatabase -
 
 $sql = "DELETE FROM [$DestinationSchema].[CpuUtilization] WHERE EventTime < '$event_time' "  
     Invoke-DbaQuery -SqlInstance $DestinationServer -Database $DestinationDatabase -Query $sql -EnableException
+
+$sql = "DELETE FROM [$DestinationSchema].[WhoIsActive_plans] WHERE plan_hash NOT IN (SELECT plan_hash FROM [$DestinationSchema].[WhoIsActive]) "  
+    Invoke-DbaQuery -SqlInstance $DestinationServer -Database $DestinationDatabase -Query $sql -EnableException
