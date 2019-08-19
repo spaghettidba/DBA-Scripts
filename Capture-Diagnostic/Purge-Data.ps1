@@ -36,7 +36,7 @@ $sql = "
         AND TYPE_NAME(system_type_id) = 'bigint'
 "
 
-[int]$snapshot_id = (get-date (get-date).AddDays(-$RetentionDays) -Format "yyyyMMddHHmmss")
+[int64]$snapshot_id = (get-date (get-date).AddDays(-$RetentionDays) -Format "yyyyMMddHHmmss")
 
 Invoke-DbaQuery -SqlInstance $DestinationServer -Database $DestinationDatabase -Query $sql -EnableException |
     ForEach-Object {
@@ -44,7 +44,7 @@ Invoke-DbaQuery -SqlInstance $DestinationServer -Database $DestinationDatabase -
         Invoke-DbaQuery -SqlInstance $DestinationServer -Database $DestinationDatabase -Query $sql -EnableException
     }
 
-$event_time = (get-date).AddDays(-$RetentionDays)
+[string]$event_time = (get-date (get-date).AddDays(-$RetentionDays) -Format "yyyyMMddHHmmss")
 
-$sql = "DELETE FROM [$DestinationSchema].[CpuUtilization] WHERE EventTime < $event_time "  
+$sql = "DELETE FROM [$DestinationSchema].[CpuUtilization] WHERE EventTime < '$event_time' "  
     Invoke-DbaQuery -SqlInstance $DestinationServer -Database $DestinationDatabase -Query $sql -EnableException
