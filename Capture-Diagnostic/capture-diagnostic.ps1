@@ -60,16 +60,17 @@ Invoke-DbaDiagnosticQuery -SqlInstance $SourceServer  -QueryName $queries |
         # Decide whether collection needs an additional "server" column
         # Two different checks are required, because the input collection
         # could contain objects of different types (System.Data.DataRow or PsCustomObject)
-        if(-not (($_.Result.PSObject.Properties | Select-Object -Expand Name) -contains "Server Name")) {
+        if($_.Result.PSObject.Properties.Name -notcontains "Server Name") {
             if(($_.Result | Get-Member -MemberType NoteProperty -Name "Server Name" | Measure-Object).Count -eq 0) {
                 $expr += ' $serverProp, '
             }
         }
+        
 
         # Decide whether collection needs an additional "database" column
         # again, two different checks
         if($_.DatabaseSpecific) {
-            if(-not (($_.Result.PSObject.Properties | Select-Object -Expand Name) -contains "Database Name")) {
+            if($_.Result.PSObject.Properties.Name -notcontains "Database Name") {
                 if(($_.Result | Get-Member -MemberType NoteProperty -Name "Database Name" | Measure-Object).Count -eq 0) {
                     $expr += ' $databaseProp, '
                 }
