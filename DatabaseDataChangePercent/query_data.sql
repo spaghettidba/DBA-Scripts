@@ -18,4 +18,4 @@ SELECT [Database Name]
                 AND type = 'D'
                 AND backup_start_date < cd.time
         )
-
+  ORDER BY [Database Name], [Time]
