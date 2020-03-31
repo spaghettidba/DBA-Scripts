@@ -9,7 +9,8 @@ param (
     [String] $BackupType,
     [String] $OutcomeInstance,
     [String] $OutcomeDatabase,
-    [String] $OutcomeTable
+    [String] $OutcomeTable,
+    [int] $FileCount = 0
 )
 
 
@@ -35,7 +36,7 @@ foreach($database in $databases){
     $extension = "bak"
     if($BackupType -eq "LOG") { $extension = "trn" }
     if(($BackupType -eq "DIFF") -and ($database.Name -eq "master")) { continue } # no DIFF backups for master
-    $backupOutcome = Backup-DbaDatabase -SqlInstance $SqlInstance -Database $($Database.Name) -BackupDirectory $outputfolder -Type $BackupType  -BackupFileName "servername_instancename_dbname_backuptype_timestamp.$extension" -ReplaceInName -CompressBackup 
+    $backupOutcome = Backup-DbaDatabase -SqlInstance $SqlInstance -Database $($Database.Name) -BackupDirectory $outputfolder -Type $BackupType  -BackupFileName "servername_instancename_dbname_backuptype_timestamp.$extension" -ReplaceInName -CompressBackup -FileCount $FileCount
     if($OutcomeInstance) {
         $backupOutcome | Write-DbaDataTable -SqlInstance $OutcomeInstance -Database $OutcomeDatabase -Table $OutcomeTable -AutoCreateTable
     }
