@@ -1,3 +1,4 @@
+EXEC sp_configure 'advanced', 1
 EXEC sp_configure 'Database Mail XPs', 1
 RECONFIGURE;
 GO
