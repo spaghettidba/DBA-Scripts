@@ -1,5 +1,5 @@
 EXEC sp_configure 'Database Mail XPs', 1
-RECONFIGURE WITH OVERRIDE;
+RECONFIGURE;
 GO
 
 EXEC msdb.dbo.sysmail_configure_sp @parameter_name = N'AccountRetryAttempts'

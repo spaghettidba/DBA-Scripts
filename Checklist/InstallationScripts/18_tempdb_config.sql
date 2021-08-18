@@ -1,3 +1,11 @@
+
+-- !!!!!!!!!!!!!!!!!!!   WARNING  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --
+-- 
+--   RUN ONLY IF TEMPDB NOT CONFIGURED BY THE SETUP
+-- 
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --
+
+
 USE [master]
 GO
 ALTER DATABASE [tempdb] MODIFY FILE ( NAME = N'tempdev', SIZE = 100MB , FILEGROWTH = 100MB )
@@ -50,7 +58,7 @@ SELECT '
 	ALTER DATABASE [tempdb] ADD FILE ( NAME = N''tempdev_'+ CAST(i AS varchar(10)) +''', FILENAME = N'''+ @physlocation +'tempdb_'+ CAST(i AS varchar(10)) +'.ndf'' , SIZE = 100MB , FILEGROWTH = 100MB )
 '
 FROM Tally
-WHERE i BETWEEN @filecount + 1 AND @tempdbfiles 
+WHERE i BETWEEN @filecount + 1 AND @tempdbfiles - @filecount + 1
 
 
 OPEN c
